@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#006b61">
+  <title>ENESA × Vale | Painel dos transportadores</title>
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="data.js"></script>
+  <script defer src="planning-data.js"></script>
+  <script defer src="app.js"></script>
+  <script defer src="planning.js"></script>
+</head>
+<body>
+  <header>
+    <img class="enesa" src="assets/enesa.png" alt="Enesa">
+    <div class="heading">
+      <span class="eyebrow">PLANEJAMENTO E EXECUÇÃO</span>
+      <h1>Painel dos transportadores</h1>
+      <p>Lançamento, emenda e recomposição</p>
+    </div>
+    <img class="vale" src="assets/vale.png" alt="Vale">
+  </header>
+  <main>
+    <nav class="section-nav" aria-label="Seções do painel">
+      <a href="#visao-geral">Visão geral</a>
+      <a href="#planejamento">Planejamento</a>
+      <a href="#campo">Checklist de campo</a>
+    </nav>
+    <section id="visao-geral" aria-labelledby="overview-title">
+      <div class="area-heading">
+        <h2 id="overview-title">Visão geral</h2>
+        <span>Indicadores do checklist de campo · Bloco 1</span>
+      </div>
+      <div class="kpis" id="kpis" aria-label="Indicadores de campo"></div>
+      <div class="overview">
+        <article class="panel hero">
+          <div>
+            <span class="eyebrow">BLOCO 1 · STATUS DE CAMPO</span>
+            <h2>TR09–20</h2>
+            <p>Lançamento e emenda concluídos pela Continental.</p>
+            <div class="hero-stats">
+              <strong>TR09–14 <small>Checklist de campo completo</small></strong>
+              <span class="badge amber">Recomposição em andamento</span>
+            </div>
+          </div>
+          <img src="assets/transportador.png" alt="Ilustração 3D de transportador de minério">
+        </article>
+        <article class="panel preparation">
+          <span class="eyebrow">BLOCO 2 · STATUS DE CAMPO</span>
+          <h2>TR26, TR27 e TR28</h2>
+          <span class="badge amber">Desmontagem em andamento</span>
+          <img src="assets/bobina.png" alt="Ilustração 3D de bobina Continental">
+          <p>Desmontagem de componentes para liberar o lançamento pela Continental.</p>
+        </article>
+      </div>
+      <div class="blocks" id="blocks" aria-label="Blocos de transportadores"></div>
+    </section>
+
+    <section id="planejamento" aria-labelledby="planning-title">
+      <div class="area-heading">
+        <h2 id="planning-title">Planejamento por transportador</h2>
+        <span>Janelas programadas · 2026</span>
+      </div>
+      <div class="milestones" id="milestones"></div>
+      <article class="panel planning-panel">
+        <div class="section-head">
+          <div>
+            <h3>Janelas de execução</h3>
+            <p>Selecione um bloco e abra o transportador para ver as etapas e a especificação da correia.</p>
+          </div>
+          <div class="segments" role="group" aria-label="Bloco do planejamento">
+            <button type="button" data-schedule="1" aria-pressed="false">TR09–20</button>
+            <button type="button" data-schedule="2" aria-pressed="true">TR26–28</button>
+          </div>
+        </div>
+        <div class="table-scroll" tabindex="0" aria-label="Tabela de janelas de execução">
+          <table id="schedule-matrix" aria-label="Janelas programadas por transportador"></table>
+        </div>
+        <p class="footnote" id="schedule-note"></p>
+      </article>
+      <div class="planning-grid">
+        <article class="panel planning-panel">
+          <h3>Correias por bloco</h3>
+          <dl class="belt-overview">
+            <div><dt>TR09–20</dt><dd><strong>PN4000 · 2.200 mm</strong><span>~77 m por transportador · cobertura 12 × 3 mm</span></dd></div>
+            <div><dt>TR26–28</dt><dd><strong>PN4000 · 1.800 mm</strong><span>~976 m somados · cobertura 14 × 5 mm</span></dd></div>
+          </dl>
+        </article>
+        <article class="panel planning-panel">
+          <h3>Estimativa Continental · TR26–28</h3>
+          <p><strong>58,5 h por TR</strong> · cerca de seis turnos, além da preparação da área pela Enesa.</p>
+          <ul class="work-split" id="work-split" aria-label="Distribuição das horas estimadas"></ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel checklist" id="campo" aria-labelledby="checklist-title">
+      <div class="section-head">
+        <div>
+          <h2 id="checklist-title">Checklist de campo <span class="muted">/ Bloco 1</span></h2>
+          <p>TR09–20 · nove itens por transportador</p>
+        </div>
+        <div class="controls">
+          <label>Buscar TR<input id="search" placeholder="Ex.: TR16" type="search"></label>
+          <label>Exibir<select id="filter">
+            <option value="all">Todos os TRs</option>
+            <option value="complete">Checklist completo</option>
+            <option value="active">Com itens em execução</option>
+            <option value="unknown">Com itens não informados</option>
+          </select></label>
+          <button id="export">Exportar CSV</button>
+        </div>
+      </div>
+      <div class="legend">
+        <span><b class="key ok">✓</b> Concluído</span>
+        <span><b class="key andamento">↻</b> Em andamento</span>
+        <span><b class="key iniciando">▷</b> Iniciando*</span>
+        <span><b class="key nao_informado">—</b> Não informado</span>
+      </div>
+      <div class="table-scroll" tabindex="0" aria-label="Tabela do checklist"><table id="matrix"></table></div>
+      <p id="result-count" class="footnote" aria-live="polite"></p>
+      <p class="footnote">O indicador de campo divide os itens concluídos pelos 108 itens do checklist. A entrega formal requer liberação da Qualidade.</p>
+      <p class="footnote">* Solda do TR20 registrada como em início no relato de campo, sem data associada.</p>
+    </section>
+    <footer><span>ENESA × VALE · Controle de transportadores</span><span>Ilustrações 3D dos equipamentos</span></footer>
+  </main>
+  <dialog id="detail" aria-labelledby="dialog-title">
+    <button type="button" class="close" aria-label="Fechar detalhes">×</button>
+    <div id="detail-content"></div>
+  </dialog>
+</body>
+</html>
